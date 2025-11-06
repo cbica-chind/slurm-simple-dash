@@ -25,14 +25,13 @@ def get_sinfo(partition='all'):
         print(f'EXCEPTION: {e}')
         sys.exit(1)
 
-    if _DEBUG:
+    if _DEBUG and _VERBOSE:
         for k,v in sinfo_dict.items():
             print(f'{k}:\n\t{v}')
 
     #print(f'type(sinfo_dict["sinfo"] = {type(sinfo_dict["sinfo"])}')
 
     node_loads = {}
-    print('SINFO:')
     for s in sinfo_dict['sinfo']:
         nthreads = s['sockets']['maximum'] * s['cores']['maximum'] * s['threads']['maximum']
         load = float(s['cpus']['load']['maximum']) / 100.
@@ -45,6 +44,7 @@ def get_sinfo(partition='all'):
             pct_gres_used = None
 
         if _DEBUG and _VERBOSE:
+            print('SINFO:')
             print(f's.keys() = {s.keys()}')
             #for k,v in s.items():
             #    print(f'{k}: {v}')
