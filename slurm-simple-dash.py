@@ -67,8 +67,10 @@ def get_sinfo(partition='all'):
             print(k, v)
 
     node_load_df = pd.DataFrame.from_dict(node_loads, orient='index')
-    print(node_load_df.describe())
-    print(node_load_df)
+
+    if _DEBUG and _VERBOSE:
+        print(node_load_df.describe())
+        print(node_load_df)
 
 
 def main():
