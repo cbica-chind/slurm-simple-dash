@@ -107,9 +107,11 @@ def get_sinfo(partition='all'):
     if _DEBUG:
         print(plot_array)
 
-    ax = sns.heatmap(plot_array)
+    ax = sns.heatmap(plot_array, vmin=0., vmax=100., xticklabels='', yticklabels='')
+    ax.set(xlabel='', ylabel='')
     fig = ax.get_figure()
-    fig.savefig('load.svg')
+
+    fig.savefig(f'load_{partition}.svg')
 
 
 
