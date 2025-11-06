@@ -102,7 +102,10 @@ def get_sinfo(partition='all'):
                 if _DEBUG and _VERBOSE:
                     print(f'    {node_load_df.iloc[ind]}')
 
-                plot_array[x][y] = node_load_df.iloc[ind]['% load']
+                if partition == 'ai':
+                    plot_array[x][y] = node_load_df.iloc[ind]['% gres used']
+                else:
+                    plot_array[x][y] = node_load_df.iloc[ind]['% load']
 
     if _DEBUG:
         print(plot_array)
