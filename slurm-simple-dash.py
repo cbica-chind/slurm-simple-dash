@@ -41,8 +41,8 @@ def get_sinfo(partition='all'):
             gres_used = s['gres']['used'].split('(')[0]
             pct_gres_used = float(100. * int(gres_used.split(':')[-1]) / int(gres_total.split(':')[-1]))
         else:
-            gres_total = ''
-            gres_used = ''
+            gres_total = None
+            gres_used = None
             pct_gres_used = None
 
         if _DEBUG and _VERBOSE:
