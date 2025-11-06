@@ -46,6 +46,7 @@ def html_body():
 
     <h2>"ai" partition</h2>
 
+    <p>Load based on GPUs occupied by jobs.</p>
     <p><img src="load_ai.svg"/></p>
 
     <h2>"bigmem" partition</h2>
