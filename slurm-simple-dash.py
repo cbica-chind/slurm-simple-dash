@@ -70,6 +70,7 @@ def get_sinfo(partition='all'):
 
     if _DEBUG:
         print(node_load_df.describe())
+        print()
         print(node_load_df)
 
 
