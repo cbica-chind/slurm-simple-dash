@@ -36,9 +36,13 @@ def get_sinfo(partition='all'):
     for s in sinfo_dict['sinfo']:
         nthreads = s['sockets']['maximum'] * s['cores']['maximum'] * s['threads']['maximum']
         load = float(s['cpus']['load']['maximum']) / 100.
-        print(f'FOO = s["gres"]["total"] = {s["gres"]["total"]}')
-        gres_total = s['gres']['total'].split('(')[0]
-        gres_used = s['gres']['used'].split('(')[0]
+
+        if s['gres']['total']:
+            gres_total = s['gres']['total'].split('(')[0]
+            gres_used = s['gres']['used'].split('(')[0]
+            pct_gres_used = float(100. * int(gres_used.split(':')[-1]) / int(gres_total.split(':')[-1]))
+        else:
+            pct_gres_used = None
 
         if _DEBUG and _VERBOSE:
             print(f's.keys() = {s.keys()}')
@@ -50,7 +54,6 @@ def get_sinfo(partition='all'):
             print()
 
         fractional_load = load / float(nthreads) * 100.
-        pct_gres_used = float(100. * int(gres_used.split(':')[-1]) / int(gres_total.split(':')[-1]))
         node_loads[s['nodes']['nodes'][0]] = {'nthreads': nthreads,
                                               'allocated': s['cpus']['allocated'],
                                               'load': load,
