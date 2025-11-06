@@ -55,11 +55,11 @@ def get_sinfo(partition='all'):
             print(f'    {s["nodes"]["nodes"][0]} : nthreads = {nthreads:2d} ; allocated = {s["cpus"]["allocated"]:2d} ; load = {load:7.2f}')
             print()
 
-        fractional_load = load / float(nthreads) * 100.
+        pct_load = load / float(nthreads) * 100.
         node_loads[s['nodes']['nodes'][0]] = {'nthreads': nthreads,
                                               'allocated': s['cpus']['allocated'],
                                               'load': load,
-                                              'fractional load': fractional_load,
+                                              '% load': pct_load,
                                               'gres total': gres_total,
                                               'gres used': gres_used,
                                               '% gres used': pct_gres_used}
