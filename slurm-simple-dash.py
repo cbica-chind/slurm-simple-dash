@@ -36,11 +36,13 @@ def get_sinfo(partition='all'):
         nthreads = s['sockets']['maximum'] * s['cores']['maximum'] * s['threads']['maximum']
         load = float(s['cpus']['load']['maximum']) / 100.
 
-        if s['gres']['total']:
+        if len(s['gres']['total']) > 0:
             gres_total = s['gres']['total'].split('(')[0]
             gres_used = s['gres']['used'].split('(')[0]
             pct_gres_used = float(100. * int(gres_used.split(':')[-1]) / int(gres_total.split(':')[-1]))
         else:
+            gres_total = ''
+            gres_used = ''
             pct_gres_used = None
 
         if _DEBUG and _VERBOSE:
