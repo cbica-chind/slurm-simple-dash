@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 import sys
 import os
+import math
 import json
 import subprocess
 import argparse
+import numpy as np
 import pandas as pd
+import seaborn as sns
+import matplotlib.pylab as plt
 
 
 _DEBUG = False
@@ -71,9 +75,42 @@ def get_sinfo(partition='all'):
     node_load_df = pd.DataFrame.from_dict(node_loads, orient='index')
 
     if _DEBUG:
+        print(math.ceil(math.sqrt(len(node_load_df))))
         print(node_load_df.describe())
         print()
         print(node_load_df)
+        print()
+
+    side_a = math.floor(math.sqrt(len(node_load_df)))
+    side_b = side_a + 1
+    plot_array = np.full((side_a, side_b), -1.)
+
+    if _DEBUG and _VERBOSE:
+        print(f'FOO: plot_array = \n{plot_array}')
+        print()
+        print(f'FOO: side_a = {side_a}')
+        print(f'FOO: side_b = {side_b}')
+
+    for x in range(side_a):
+        for y in range(side_b):
+            ind = (x * side_b) + y
+
+            if _DEBUG and _VERBOSE:
+                print(f'FOO: x = {x}, y = {y}, ind = {ind}')
+
+            if ind < len(node_load_df):
+                if _DEBUG and _VERBOSE:
+                    print(f'    {node_load_df.iloc[ind]}')
+
+                plot_array[x][y] = node_load_df.iloc[ind]['% load']
+
+    if _DEBUG:
+        print(plot_array)
+
+    ax = sns.heatmap(plot_array)
+    fig = ax.get_figure()
+    fig.savefig('load.svg')
+
 
 
 def main():
@@ -93,6 +130,10 @@ def main():
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
     pd.set_option('display.width', None)
+
+    # numpy display options
+    np.set_printoptions(threshold=np.inf)
+    np.set_printoptions(linewidth=np.inf)
 
     get_sinfo(args.partition)
 
