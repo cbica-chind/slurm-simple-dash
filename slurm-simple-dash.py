@@ -15,6 +15,48 @@ _DEBUG = False
 _VERBOSE = False
 
 
+def html_head():
+    global _DEBUG
+    global _VERBOSE
+
+    outstr = """<!DOCTYPE html>
+    <HTML>
+    <HEAD>
+        <TITLE>CUBIC load</TITLE>
+        <style>
+            body {font-family: Calibri, "Lucida Sans", sans-serif;}
+            p { font-family: Consolas, monospace;}
+            pre {font-family: Consolas, monospace;}
+        </style>
+    </HEAD>"""
+
+    return outstr
+
+
+def html_body():
+    global _DEBUG
+    global _VERBOSE
+
+    outstr = """<BODY>
+    <h1>CUBIC load</h1>
+
+    <h2>"all" partition</h2>
+
+    <p><img src="load_all.svg"/></p>
+
+    <h2>"ai" partition</h2>
+
+    <p><img src="load_ai.svg"/></p>
+
+    <h2>"bigmem" partition</h2>
+
+    <p><img src="load_bigmem.svg"/></p>
+    </BODY>
+    </HTML>"""
+
+    return outstr
+
+
 def get_sinfo(partition='all'):
     global _DEBUG
     global _VERBOSE
@@ -115,7 +157,7 @@ def get_sinfo(partition='all'):
     fig = ax.get_figure()
 
     fig.savefig(f'load_{partition}.svg')
-
+    plt.clf()
 
 
 def main():
@@ -125,7 +167,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--debug', action='store_true', help='debugging output')
     parser.add_argument('-v', '--verbose', action='store_true', help='verbose output')
-    parser.add_argument('-p', '--partition', help='partition', default='all')
     args = parser.parse_args()
 
     _DEBUG = args.debug
@@ -140,7 +181,12 @@ def main():
     np.set_printoptions(threshold=np.inf)
     np.set_printoptions(linewidth=np.inf)
 
-    get_sinfo(args.partition)
+    for partition in ['all', 'ai', 'bigmem']:
+        get_sinfo(partition)
+
+    with open('cubic_load.html', 'w') as f:
+        f.write(html_head())
+        f.write(html_body())
 
 
 if __name__ == '__main__':
