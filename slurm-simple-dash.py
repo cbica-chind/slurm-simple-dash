@@ -76,7 +76,8 @@ def get_sinfo(partition='all'):
     global _DEBUG
     global _VERBOSE
 
-    sinfo_cmdline = f'sinfo --Node --json -p {partition}'.split()
+    sinfo_path = '/cbica/software/external/slurm/current/bin/sinfo'
+    sinfo_cmdline = f'{sinfo_path} --Node --json -p {partition}'.split()
 
     sinfo_dict = None
     try:
