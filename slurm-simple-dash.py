@@ -4,6 +4,7 @@ import os
 import math
 import json
 import subprocess
+import datetime
 import argparse
 import numpy as np
 import pandas as pd
@@ -37,8 +38,8 @@ def html_body():
     global _DEBUG
     global _VERBOSE
 
-    outstr = """<BODY>
-    <h1>CUBIC load</h1>
+    outstr = f"""<BODY>
+    <h1>CUBIC load {datetime.datetime.now()}</h1>
 
     <h2>"all" partition</h2>
 
