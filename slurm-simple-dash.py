@@ -28,6 +28,8 @@ def html_head():
             body {font-family: Calibri, "Lucida Sans", sans-serif;}
             p { font-family: Consolas, monospace;}
             pre {font-family: Consolas, monospace;}
+            table, th, td {boder: 0px; border-collapse: collapse;}
+            td {text-align: center; vertical-align: middle;}
         </style>
     </HEAD>"""
 
@@ -39,22 +41,31 @@ def html_body():
     global _VERBOSE
 
     outstr = f"""<BODY>
-    <h1>CUBIC load {datetime.datetime.now()}</h1>
+    <h1>CUBIC load {datetime.datetime.now():%Y-%m-%d %H:%M}</h1>
 
     <p>Updates every 10 minutes.</p>
 
-    <h2>"all" partition</h2>
+    <table>
+        <tr>
+            <th><tt>all</tt> partition</th>
+            <th><tt>ai</tt> partition</th>
+        </tr>
 
-    <p><img src="load_all.svg"/></p>
+        <tr>
+            <td><img src="load_all.svg"/></td>
+            <td>GPU utilization.<br/><img src="load_ai.svg"/></td>
+        </tr>
 
-    <h2>"ai" partition</h2>
+        <tr>
+            <th><tt><tt>bigmem</tt></tt> partition</th>
+            <th>&nbsp;</th>
+        </tr>
 
-    <p>Load based on GPUs occupied by jobs.</p>
-    <p><img src="load_ai.svg"/></p>
-
-    <h2>"bigmem" partition</h2>
-
-    <p><img src="load_bigmem.svg"/></p>
+        <tr>
+            <td><img src="load_bigmem.svg"/></td>
+            <td>&nbsp;</td>
+       </tr>
+    </table>
     </BODY>
     </HTML>"""
 
