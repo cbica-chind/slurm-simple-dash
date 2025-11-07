@@ -19,3 +19,10 @@ Copy to `/etc/cron.d`:
 
 -   `slurm_load`
 
+### Symlink in web directory
+
+In `/admin/centos7/httpd/var/www/html/slurm-load`:
+
+``` console
+$ ln -s cubic_load.html index.html
+```
