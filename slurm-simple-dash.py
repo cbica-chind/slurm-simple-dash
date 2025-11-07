@@ -127,8 +127,15 @@ def get_sinfo(partition='all'):
         print(node_load_df)
         print()
 
-    side_a = math.floor(math.sqrt(len(node_load_df)))
-    side_b = side_a + 1
+    # XXX this is error-prone; try the case where len(node_load_df) == 4 or 3
+
+    if 'partition' == 'bigmem':
+        side_a = 1
+        side_b = 3
+    else:
+        side_a = math.floor(math.sqrt(len(node_load_df)))
+        side_b = side_a + 1
+
     plot_array = np.full((side_a, side_b), -1.)
 
     if _DEBUG and _VERBOSE:
