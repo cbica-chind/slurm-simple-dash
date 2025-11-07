@@ -41,6 +41,8 @@ def html_body():
     outstr = f"""<BODY>
     <h1>CUBIC load {datetime.datetime.now()}</h1>
 
+    <p>Updated every 10 minutes.</p>
+
     <h2>"all" partition</h2>
 
     <p><img src="load_all.svg"/></p>
