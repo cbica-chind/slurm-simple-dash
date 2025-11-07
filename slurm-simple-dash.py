@@ -129,7 +129,7 @@ def get_sinfo(partition='all'):
 
     # XXX this is error-prone; try the case where len(node_load_df) == 4 or 3
 
-    if 'partition' == 'bigmem':
+    if partition == 'bigmem':
         side_a = 1
         side_b = 3
     else:
@@ -138,11 +138,12 @@ def get_sinfo(partition='all'):
 
     plot_array = np.full((side_a, side_b), -1.)
 
-    if _DEBUG and _VERBOSE:
-        print(f'FOO: plot_array = \n{plot_array}')
-        print()
+    if _DEBUG:
+        print(f'FOO: partition = {partition}')
         print(f'FOO: side_a = {side_a}')
         print(f'FOO: side_b = {side_b}')
+        print(f'FOO: plot_array = \n{plot_array}')
+        print()
 
     for x in range(side_a):
         for y in range(side_b):
@@ -163,7 +164,7 @@ def get_sinfo(partition='all'):
     if _DEBUG:
         print(plot_array)
 
-    ax = sns.heatmap(plot_array, vmin=0., vmax=100., xticklabels='', yticklabels='')
+    ax = sns.heatmap(plot_array, vmin=0., vmax=100., xticklabels='', yticklabels='', linewidths=1)
     ax.set(xlabel='', ylabel='')
     fig = ax.get_figure()
 
