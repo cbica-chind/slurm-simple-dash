@@ -1,2 +1,2 @@
 # copy to /etc/cron.d
-*/10 * * * * root /admin/bin/slurm-simple-dash-wrapper.sh
+5,15,25,25,45,55 * * * * root /admin/bin/slurm-simple-dash-wrapper.sh
