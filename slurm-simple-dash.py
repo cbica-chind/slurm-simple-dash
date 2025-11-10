@@ -24,6 +24,7 @@ def html_head():
     <HTML>
     <HEAD>
         <TITLE>CUBIC load</TITLE>
+        <meta http-equiv="refresh" content="600">
         <style>
             body {font-family: Calibri, "Lucida Sans", sans-serif;}
             p { font-family: Consolas, monospace;}
