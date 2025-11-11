@@ -38,7 +38,6 @@ cd /admin/centos7/httpd/var/www/html/slurm-load
 spack load /45euzfe
 
 source ~/Venvs/slurmdash/bin/activate
-python3 /admin/bin/slurm-simple-dash.py
 
 if [[ $(python3 /admin/bin/slurm-simple-dash.py) ]]
 then
