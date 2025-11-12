@@ -111,8 +111,7 @@ def get_sinfo(partition='all'):
         if _DEBUG and _VERBOSE:
             print('SINFO:')
             print(f's.keys() = {s.keys()}')
-            #for k,v in s.items():
-            #    print(f'{k}: {v}')
+
             if s['cpus']['load']['minimum'] != s['cpus']['load']['maximum']:
                 print('XXX DIFFERENT')
             print(f'    {s["nodes"]["nodes"][0]} : nthreads = {nthreads:2d} ; allocated = {s["cpus"]["allocated"]:2d} ; load = {load:7.2f}')
@@ -142,25 +141,24 @@ def get_sinfo(partition='all'):
 
     # XXX this is error-prone; try the case where len(node_load_df) == 4 or 3
 
-    if partition == 'bigmem':
-        side_a = 1
-        side_b = 3
-    else:
-        side_a = math.floor(math.sqrt(len(node_load_df)))
-        side_b = side_a + 1
+    side_y = math.floor(math.sqrt(len(node_load_df)))
+    side_x = side_y
 
-    plot_array = np.full((side_a, side_b), -1.)
+    while side_x * side_y < len(node_load_df):
+        side_x += 1
+
+    plot_array = np.full((side_y, side_x), -1.)
 
     if _DEBUG:
         print(f'FOO: partition = {partition}')
-        print(f'FOO: side_a = {side_a}')
-        print(f'FOO: side_b = {side_b}')
+        print(f'FOO: side_y = {side_y}')
+        print(f'FOO: side_x = {side_x}')
         print(f'FOO: plot_array = \n{plot_array}')
         print()
 
-    for x in range(side_a):
-        for y in range(side_b):
-            ind = (x * side_b) + y
+    for x in range(side_y):
+        for y in range(side_x):
+            ind = (x * side_x) + y
 
             if _DEBUG and _VERBOSE:
                 print(f'FOO: x = {x}, y = {y}, ind = {ind}')
